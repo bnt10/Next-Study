@@ -6,6 +6,10 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import App, { AppProps, AppContext } from 'next/app'
 
+//redux
+import { Provider as ReduxProvider } from 'react-redux'
+import { store } from 'src/redux/store'
+
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
 } // nextjs component type boilerplate
@@ -24,8 +28,7 @@ export default function MyApp(props: MyAppProps) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-
-      {getLayout(<Component {...pageProps} />)}
+      <ReduxProvider store={store}>{getLayout(<Component {...pageProps} />)}</ReduxProvider>
     </>
   )
 }

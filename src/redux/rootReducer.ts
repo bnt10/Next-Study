@@ -1,20 +1,19 @@
-import { combineReducers } from '@reduxjs/toolkit'
-import createWebStorage from 'redux-persist/es/storage/createWebStorage'
+import { combineReducers } from 'redux'
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
 
 const createNoopStorage = () => ({
-  getItem(key: string) {
+  getItem(_key: string) {
     return Promise.resolve(null)
   },
-  setItem(key: string, value: any) {
-    return Promise.resolve
+  setItem(_key: string, value: any) {
+    return Promise.resolve(value)
   },
-  removeItem(key: string) {
+  removeItem(_key: string) {
     return Promise.resolve()
   },
 })
 
 const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage()
-
 const rootPersistConfig = {
   key: 'root',
   storage,
