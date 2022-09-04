@@ -1,8 +1,41 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+//react
+import { ReactElement, ReactNode } from 'react'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+// next
+import { NextPage } from 'next'
+import Head from 'next/head'
+import App, { AppProps, AppContext } from 'next/app'
+
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode
+} // nextjs component type boilerplate
+
+interface MyAppProps extends AppProps {
+  Component: NextPageWithLayout
 }
 
-export default MyApp
+export default function MyApp(props: MyAppProps) {
+  const { Component, pageProps } = props
+
+  const getLayout = Component.getLayout ?? ((page) => page)
+
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+
+      {getLayout(<Component {...pageProps} />)}
+    </>
+  )
+}
+
+// ----------------------------------------------------------------------
+
+MyApp.getInitialProps = async (context: AppContext) => {
+  const appProps = await App.getInitialProps(context)
+
+  return {
+    ...appProps,
+  }
+}

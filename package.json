@@ -10,10 +10,13 @@
     "re-install": "rm -rf .next .swc _static node_modules && npm install"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
     "next": "12.2.5",
     "prettier": "^2.7.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.2",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "18.7.13",
