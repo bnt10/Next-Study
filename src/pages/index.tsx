@@ -1,12 +1,14 @@
 import type { NextPage } from 'next'
-import styles from '../styles/Home.module.css'
+import React from 'react'
+import AppLayout from 'src/layouts'
 
-const Home: NextPage = () => {
-  return (
-    <div className={styles.container}>
-      <div>start Next-js !</div>
-    </div>
-  )
+//containers
+import MainPage from 'src/pages/main'
+
+export default function HomePage() {
+  return <MainPage />
 }
 
-export default Home
+HomePage.getLayout = function getLayout(page: React.ReactElement) {
+  return <AppLayout>{page}</AppLayout>
+}
