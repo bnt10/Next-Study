@@ -9,6 +9,7 @@ import App, { AppProps, AppContext } from 'next/app'
 //redux
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from 'src/redux/store'
+import { AuthProvider } from 'src/contexts/AuthContext'
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -28,7 +29,9 @@ export default function MyApp(props: MyAppProps) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <ReduxProvider store={store}>{getLayout(<Component {...pageProps} />)}</ReduxProvider>
+      <AuthProvider>
+        <ReduxProvider store={store}>{getLayout(<Component {...pageProps} />)}</ReduxProvider>
+      </AuthProvider>
     </>
   )
 }

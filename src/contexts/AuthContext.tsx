@@ -5,8 +5,6 @@ import { isValidToken, setSession } from '../utils/jwt'
 // @types
 import { ActionMap, AuthState, AuthUser, JWTContextType } from '../@types/auth'
 
-// ----------------------------------------------------------------------
-
 enum Types {
   Initial = 'INITIALIZE',
   Login = 'LOGIN',
@@ -27,25 +25,6 @@ type JWTAuthPayload = {
     user: AuthUser
   }
 }
-/*
- 사용문법
- 1.Mapped type is  generic type 
- 2.signature -> Record<string, any>
- 3.conditional types 
- 4.indexed access type  type<T>[keyof T]
-
- export type ActionMap<M extends { [index: string]: any }> = {
-  [Key in keyof M]: M[Key] extends undefined
-    ? {
-        type: Key;
-      }
-    : {
-        type: Key;
-        payload: M[Key];
-      };
-};
-
-*/
 
 export type JWTActions = ActionMap<JWTAuthPayload>[keyof ActionMap<JWTAuthPayload>]
 
@@ -103,10 +82,8 @@ function AuthProvider({ children }: AuthProviderProps) {
     const initialize = async () => {
       try {
         const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : ''
-
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken)
-
           const response = await axios.get('/api/account/my-account')
           const { user } = response.data
 
