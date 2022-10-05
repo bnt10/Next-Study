@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
+import source from './slice/source'
 
 const createNoopStorage = () => ({
   getItem(_key: string) {
@@ -21,5 +22,7 @@ const rootPersistConfig = {
   whitelist: [],
 }
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({
+  source: source,
+})
 export { rootPersistConfig, rootReducer }
