@@ -1,7 +1,8 @@
 import { NextPage } from 'next/types'
+import Page from 'src/components/common/Page'
 
 const MainPage: NextPage = () => {
-  return <div>Home Page</div>
+  return <Page title="Home Page">Home Page</Page>
 }
 
 export default MainPage

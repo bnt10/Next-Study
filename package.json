@@ -10,6 +10,9 @@
     "re-install": "rm -rf .next .swc _static node_modules && npm install"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.8",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "jwt-decode": "^3.1.2",
