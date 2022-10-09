@@ -3,7 +3,7 @@ function path(root: string, sublink: string) {
 }
 
 const ROOTS_AUTH = '/auth'
-const ROOTS_DASHBOARD = '/dashboard'
+const ROOTS_APP = '/app'
 
 export const PATH_AUTH = {
   root: ROOTS_AUTH,
@@ -16,4 +16,6 @@ export const PATH_AUTH = {
   newPassword: path(ROOTS_AUTH, '/new-password'),
 }
 
-export {}
+export const PATH_APP = {
+  root: ROOTS_APP,
+}

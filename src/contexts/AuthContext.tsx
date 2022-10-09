@@ -124,7 +124,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       password,
     })
     const { accessToken, user } = response.data
-
+    console.log('asdsad')
     setSession(accessToken)
 
     dispatch({

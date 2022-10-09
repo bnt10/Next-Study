@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <meta charSet="utf-8" />
-          <link rel="manifest" href="/manifest.json" />
+          <link rel="/manifest" href="/manifest.json" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
 
           <link
