@@ -3,25 +3,26 @@ import { createContext, ReactNode, useEffect, useReducer } from 'react'
 import axios from '../utils/axios'
 import { isValidToken, setSession } from '../utils/jwt'
 // @types
-import { ActionMap, AuthState, AuthUser, JWTContextType } from '../@types/auth'
+import { ActionMap, AuthState, AuthUser, JWTContextType } from '../types/auth'
 
-enum Types {
-  Initial = 'INITIALIZE',
-  Login = 'LOGIN',
-  Logout = 'LOGOUT',
-  Register = 'REGISTER',
-}
+const LoginTypes = {
+  Initial: 'INITIALIZE',
+  Login: 'LOGIN',
+  Logout: 'LOGOUT',
+  Register: 'REGISTER',
+} as const
+type LoginTypes = typeof LoginTypes[keyof typeof LoginTypes]
 
 type JWTAuthPayload = {
-  [Types.Initial]: {
+  [LoginTypes.Initial]: {
     isAuthenticated: boolean
     user: AuthUser
   }
-  [Types.Login]: {
+  [LoginTypes.Login]: {
     user: AuthUser
   }
-  [Types.Logout]: undefined
-  [Types.Register]: {
+  [LoginTypes.Logout]: undefined
+  [LoginTypes.Register]: {
     user: AuthUser
   }
 }
@@ -88,7 +89,7 @@ function AuthProvider({ children }: AuthProviderProps) {
           const { user } = response.data
 
           dispatch({
-            type: Types.Initial,
+            type: LoginTypes.Initial,
             payload: {
               isAuthenticated: true,
               user,
@@ -96,7 +97,7 @@ function AuthProvider({ children }: AuthProviderProps) {
           })
         } else {
           dispatch({
-            type: Types.Initial,
+            type: LoginTypes.Initial,
             payload: {
               isAuthenticated: false,
               user: null,
@@ -106,7 +107,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       } catch (err) {
         console.error(err)
         dispatch({
-          type: Types.Initial,
+          type: LoginTypes.Initial,
           payload: {
             isAuthenticated: false,
             user: null,
@@ -119,16 +120,17 @@ function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   const login = async (email: string, password: string) => {
+    console.log('asdsad')
     const response = await axios.post('/api/account/login', {
       email,
       password,
     })
     const { accessToken, user } = response.data
-    console.log('asdsad')
+
     setSession(accessToken)
 
     dispatch({
-      type: Types.Login,
+      type: LoginTypes.Login,
       payload: {
         user,
       },
@@ -147,7 +149,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     localStorage.setItem('accessToken', accessToken)
 
     dispatch({
-      type: Types.Register,
+      type: LoginTypes.Register,
       payload: {
         user,
       },
@@ -156,7 +158,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = async () => {
     setSession(null)
-    dispatch({ type: Types.Logout })
+    dispatch({ type: LoginTypes.Logout })
   }
 
   return (

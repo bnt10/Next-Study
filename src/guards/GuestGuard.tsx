@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import useAuth from '../hooks/useAuth'
 // routes
 import { PATH_APP } from '../routes'
+import LoadingScreen from 'src/components/common/LoadingScreen'
 // components
-import LoadingScreen from '../components/LoadingScreen'
 
 // ----------------------------------------------------------------------
 

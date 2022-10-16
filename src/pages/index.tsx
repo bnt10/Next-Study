@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+// libraries
 import React from 'react'
 import AppLayout from 'src/layouts'
 

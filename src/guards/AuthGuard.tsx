@@ -3,6 +3,7 @@ import { useState, ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 // hooks
 import useAuth from '../hooks/useAuth'
+import Login from 'src/pages/auth/login'
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +19,6 @@ export default function AuthGuard({ children }: Props) {
   const [requestedLocation, setRequestedLocation] = useState<string | null>(null)
 
   useEffect(() => {
-    console.log(isAuthenticated, isInitialized)
     if (requestedLocation && pathname !== requestedLocation) {
       push(requestedLocation)
     }
@@ -35,7 +35,11 @@ export default function AuthGuard({ children }: Props) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname)
     }
-    return <div>Login Page</div>
+    return (
+      <>
+        <Login />
+      </>
+    )
   }
 
   return <>{children}</>
