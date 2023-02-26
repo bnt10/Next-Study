@@ -9,6 +9,12 @@ import App, { AppProps, AppContext } from 'next/app'
 //redux
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from 'src/redux/store'
+import { AuthProvider } from 'src/contexts/AuthContext'
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  require('../mocks')
+}
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -18,6 +24,7 @@ interface MyAppProps extends AppProps {
   Component: NextPageWithLayout
 }
 
+const queryClient = new QueryClient()
 export default function MyApp(props: MyAppProps) {
   const { Component, pageProps } = props
 
@@ -28,7 +35,13 @@ export default function MyApp(props: MyAppProps) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <ReduxProvider store={store}>{getLayout(<Component {...pageProps} />)}</ReduxProvider>
+      <AuthProvider>
+        <ReduxProvider store={store}>
+          <QueryClientProvider client={queryClient}>
+            {getLayout(<Component {...pageProps} />)}
+          </QueryClientProvider>
+        </ReduxProvider>
+      </AuthProvider>
     </>
   )
 }
