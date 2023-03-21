@@ -21,5 +21,5 @@ const Page = forwardRef<HTMLDivElement, Props>(({ children, title = '', meta, ..
     </Box>
   </>
 ))
-
+Page.displayName = 'Page'
 export default Page
