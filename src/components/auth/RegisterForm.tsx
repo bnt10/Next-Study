@@ -88,7 +88,7 @@ export default function RegisterForm({ serverLayout }: RegisterFormProps) {
 
   const isMountedRef = useIsMountedRef()
 
-  const handleChange = (e) => {
+  const handleChange = () => {
     //setTerms(terms?.map((term) => ({ ...term, checked: !term.checked })))
   }
 
